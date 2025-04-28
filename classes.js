@@ -26,14 +26,14 @@ console.log(utente2.AgeDiff(utente));
 
 class Pet {
   constructor(petName, ownerName, species, breed) {
-    (this.name = petName),
-      (this.own = ownerName),
+    (this.petName = petName),
+      (this.ownerName = ownerName),
       (this.species = species),
       (this.breed = breed);
   }
 
   SameOwner(owner) {
-    if (this.own === owner.own) {
+    if (this.own === owner.ownerName) {
       return true;
     } else {
       return false;
@@ -41,11 +41,39 @@ class Pet {
   }
 }
 
-const infoPet1 = new Pet("Nero", "Carlo", "dog", "labrador");
-console.log(infoPet1);
-const infoPet2 = new Pet("Milo", "Ludovica", "dog", "beagle");
-console.log(infoPet2);
-const infoPet3 = new Pet("Oliver", "Leonardo", "dog", "rottweiler");
-console.log(infoPet3);
-const infoPet4 = new Pet("lilly", "Ludovica", "dog", "border collie");
-console.log(infoPet4.SameOwner(infoPet2));
+//DOM
+const labelNameAnimal = document.getElementById("nameAnimal");
+const ownerName = document.getElementById("nameOwner");
+const species = document.getElementById("species");
+const breed = document.getElementById("breed");
+const button = document.querySelector(".add");
+
+const result = document.querySelector(".containerResult");
+
+let pets = [];
+
+
+
+const containerResult = () => {
+  result.innerHTML = "";
+  pets.forEach((pet) => {
+    const li = document.createElement("li");
+    li.innerText = `Nome: ${pet.petName}, proprietario: ${pet.ownerName}`;
+    result.appendChild(li);
+  });
+};
+
+button.addEventListener("click", () => {
+  let newPet = new Pet(
+    labelNameAnimal.value,
+    ownerName.value,
+    species.value,
+    breed.value
+  );
+  pets.push(newPet);
+  containerResult();
+  labelNameAnimal.value = "";
+  ownerName.value = "";
+  species.value = "";
+  breed.value = "";
+});
